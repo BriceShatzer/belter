@@ -17,32 +17,6 @@ export function stringify(item : mixed) : string {
     return Object.prototype.toString.call(item);
 }
 
-// generates a number based hash | hashStr("hello world") -> 2793925847970047000
-export function hashStr(str : string) : number {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-        hash += str[i].charCodeAt(0) * Math.pow((i % 10) + 1, 5);
-    }
-    return Math.floor(Math.pow(Math.sqrt(hash), 5));
-}
-
-// generates a string based hash | strHashStr("hello world") -> "xxmaumvfeem"
-export function strHashStr(str : string) : string {
-    let hash = '';
-
-    for (let i = 0; i < str.length; i++) {
-        let total = (str[i].charCodeAt(0) * i);
-
-        if (str[i + 1]) {
-            total += (str[i + 1].charCodeAt(0) * (i - 1));
-        }
-
-        hash += String.fromCharCode(97 + (Math.abs(total) % 26));
-    }
-
-    return hash;
-}
-
 // camelCase to kebab-case | camelToDasherize("userAccessToken") -> "user-access-token"
 export function camelToDasherize(string : string) : string {
     return string.replace(/([A-Z])/g, (g) => {

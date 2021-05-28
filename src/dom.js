@@ -6,8 +6,8 @@ import { linkFrameWindow, isWindowClosed, assertSameDomain,
 import { WeakMap } from 'cross-domain-safe-weakmap/src';
 
 import { inlineMemoize, memoize, noop, once, extend,
-    safeInterval, uniqueID, arrayFrom, ExtendableError } from './util';
-import { capitalizeFirstLetter, stringify, strHashStr } from './strings';
+    safeInterval, uniqueID, arrayFrom, ExtendableError, strHashStr } from './util';
+import { capitalizeFirstLetter, stringify } from './strings';
 import { isDevice } from './device';
 import { KEY_CODES, ATTRIBUTES, UID_HASH_LENGTH } from './constants';
 import type { CancelableType } from './types';

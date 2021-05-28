@@ -531,6 +531,32 @@ export function promiseDebounce<T>(method : () => ZalgoPromise<T> | T, delay : n
     return setFunctionName(promiseDebounced, `${ getFunctionName(method) }::promiseDebounced`);
 }
 
+// generates a number based hash | hashStr("hello world") -> 2793925847970047000
+export function hashStr(str : string) : number {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        hash += str[i].charCodeAt(0) * Math.pow((i % 10) + 1, 5);
+    }
+    return Math.floor(Math.pow(Math.sqrt(hash), 5));
+}
+
+// generates a string based hash |
+export function strHashStr(str : string) : string {
+    let hash = '';
+
+    for (let i = 0; i < str.length; i++) {
+        let total = (str[i].charCodeAt(0) * i);
+
+        if (str[i + 1]) {
+            total += (str[i + 1].charCodeAt(0) * (i - 1));
+        }
+
+        hash += String.fromCharCode(97 + (Math.abs(total) % 26));
+    }
+
+    return hash;
+}
+
 export function safeInterval(method : Function, time : number) : {| cancel : () => void |} {
 
     let timeout;
@@ -788,6 +814,9 @@ export function isObjectObject(obj : mixed) : boolean {
     return isObject(obj) && Object.prototype.toString.call(obj) === '[object Object]';
 }
 
+// checks that item is an object and not built-in
+// ( isPlainObject('hello world') || isPlainObject(window) || isPlainObject(/[A-Z]/g) ) === false 
+// isPlainObject({message:'hello'}) === true
 export function isPlainObject(obj : mixed) : boolean {
     if (!isObjectObject(obj)) {
         return false;
