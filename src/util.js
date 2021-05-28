@@ -282,30 +282,6 @@ export function once(method : Function) : Function {
     return setFunctionName(onceFunction, `${ getFunctionName(method) }::once`);
 }
 
-export function hashStr(str : string) : number {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-        hash += str[i].charCodeAt(0) * Math.pow((i % 10) + 1, 5);
-    }
-    return Math.floor(Math.pow(Math.sqrt(hash), 5));
-}
-
-export function strHashStr(str : string) : string {
-    let hash = '';
-
-    for (let i = 0; i < str.length; i++) {
-        let total = (str[i].charCodeAt(0) * i);
-
-        if (str[i + 1]) {
-            total += (str[i + 1].charCodeAt(0) * (i - 1));
-        }
-
-        hash += String.fromCharCode(97 + (Math.abs(total) % 26));
-    }
-
-    return hash;
-}
-
 export function match(str : string, pattern : RegExp) : ?string {
     const regmatch = str.match(pattern);
     if (regmatch) {
@@ -404,19 +380,6 @@ export function stringifyErrorMessage(err : mixed) : string {
     }
 
     return defaultMessage;
-}
-
-export function stringify(item : mixed) : string {
-    if (typeof item === 'string') {
-        return item;
-    }
-
-    if (item && item.toString && typeof item.toString === 'function') {
-        // $FlowFixMe
-        return item.toString();
-    }
-
-    return Object.prototype.toString.call(item);
 }
 
 export function domainMatches(hostname : string, domain : string) : boolean {
@@ -742,22 +705,6 @@ export function eventEmitter() : EventEmitterType {
             handlers = {};
         }
     };
-}
-
-export function camelToDasherize(string : string) : string {
-    return string.replace(/([A-Z])/g, (g) => {
-        return `-${ g.toLowerCase() }`;
-    });
-}
-
-export function dasherizeToCamel(string : string) : string {
-    return string.replace(/-([a-z])/g, (g) => {
-        return g[1].toUpperCase();
-    });
-}
-
-export function capitalizeFirstLetter(string : string) : string {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
 export function get(item : Object, path : string, def : mixed) : mixed {
